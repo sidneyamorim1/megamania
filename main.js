@@ -9,6 +9,8 @@
   const btnLeft = document.getElementById('btnLeft');
   const btnRight = document.getElementById('btnRight');
   const btnFire = document.getElementById('btnFire');
+  const btnPause = document.getElementById('btnPause');
+  const btnExit = document.getElementById('btnExit');
 
   const W = 320;
   const H = 480;
@@ -22,6 +24,7 @@
   const state = {
     running: false,
     gameOver: false,
+    paused: false,
     score: 0,
     level: 1,
     lives: 3,
@@ -95,6 +98,7 @@
   function startGame() {
     state.running = true;
     state.gameOver = false;
+    state.paused = false;
     state.score = 0;
     state.level = 1;
     state.lives = 3;
@@ -117,6 +121,26 @@
     overlay.classList.remove('show');
   }
 
+  function showMenu(message) {
+    state.running = false;
+    state.paused = false;
+    overlay.innerHTML = `<div class="panel"><h1>Megamania Drift</h1><p>${message}</p><p>Desktop: ← →, espaço e P para pausar. Mobile: botões na tela.</p><button id="startBtn">START</button></div>`;
+    overlay.classList.add('show');
+    overlay.querySelector('#startBtn').addEventListener('click', startGame);
+  }
+
+  function togglePause() {
+    if (!state.running || state.gameOver) return;
+    state.paused = !state.paused;
+    if (state.paused) {
+      overlay.innerHTML = `<div class="panel"><h1>PAUSE</h1><p>O jogo está pausado.</p><p>Pressione P, Enter ou o botão para voltar.</p><button id="resumeBtn">CONTINUAR</button></div>`;
+      overlay.classList.add('show');
+      overlay.querySelector('#resumeBtn').addEventListener('click', togglePause);
+    } else {
+      overlay.classList.remove('show');
+    }
+  }
+
   function endLife() {
     state.lives -= 1;
     state.energy = 100;
@@ -125,9 +149,10 @@
     if (state.lives <= 0) {
       state.running = false;
       state.gameOver = true;
-      overlay.innerHTML = `<div class="panel"><h1>GAME OVER</h1><p>SCORE ${String(state.score).padStart(6, '0')}</p><button id="startBtn">RESTART</button></div>`;
+      overlay.innerHTML = `<div class="panel"><h1>GAME OVER</h1><p>SCORE ${String(state.score).padStart(6, '0')}</p><button id="startBtn">RESTART</button><button id="menuBtn" style="margin-left:10px">SAIR</button></div>`;
       overlay.classList.add('show');
-      overlay.querySelector('#startBtn').addEventListener('click', () => location.reload());
+      overlay.querySelector('#startBtn').addEventListener('click', startGame);
+      overlay.querySelector('#menuBtn').addEventListener('click', () => showMenu('Você saiu da partida. Tente novamente quando quiser.'));
     }
   }
 
@@ -176,7 +201,7 @@
   }
 
   function update(dt) {
-    if (!state.running) return;
+    if (!state.running || state.paused) return;
     state.player.fireCooldown = Math.max(0, state.player.fireCooldown - dt);
     state.player.invuln = Math.max(0, state.player.invuln - dt);
 
@@ -372,6 +397,7 @@
   window.addEventListener('keydown', e => {
     keys.add(e.code);
     if (!state.running && e.code === 'Space') startGame();
+    if (e.code === 'KeyP' || e.code === 'Enter') togglePause();
   });
   window.addEventListener('keyup', e => keys.delete(e.code));
   ['gesturestart', 'gesturechange', 'gestureend'].forEach((eventName) => {
@@ -384,6 +410,8 @@
   bindHold(btnLeft, 'left');
   bindHold(btnRight, 'right');
   bindHold(btnFire, 'fire');
+  btnPause.addEventListener('click', togglePause);
+  btnExit.addEventListener('click', () => showMenu('Você saiu da partida. Quando quiser, aperte START para jogar novamente.'));
 
   resize();
   updateHUD();
