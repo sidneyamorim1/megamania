@@ -45,7 +45,7 @@ html, body {
 }
 
 #energyWrap {
-  bottom: calc(12px + env(safe-area-inset-bottom));
+  bottom: calc(18px + env(safe-area-inset-bottom));
   padding: 0 16px;
   color: #7dff7d;
 }
@@ -72,7 +72,7 @@ html, body {
 }
 
 #mobileControls {
-  bottom: calc(92px + env(safe-area-inset-bottom));
+  bottom: calc(140px + env(safe-area-inset-bottom));
   display: none;
   justify-content: space-between;
   gap: 8px;
@@ -146,7 +146,11 @@ html, body {
     padding-left: 12px;
     padding-right: 12px;
   }
-  #energyWrap { padding-left: 12px; padding-right: 12px; }
+  #energyWrap {
+    padding-left: 12px;
+    padding-right: 12px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+  }
   #mobileControls { padding-left: 12px; padding-right: 12px; gap: 10px; }
   .ctrl {
     min-height: 50px;
