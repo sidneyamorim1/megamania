@@ -13,6 +13,7 @@ html, body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: #000;
 }
 
@@ -36,7 +37,7 @@ html, body {
   top: 0;
   display: flex;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
   color: #f7f7f7;
   font-size: 18px;
   letter-spacing: 1px;
@@ -44,7 +45,7 @@ html, body {
 }
 
 #energyWrap {
-  bottom: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
   padding: 0 16px;
   color: #7dff7d;
 }
@@ -71,7 +72,7 @@ html, body {
 }
 
 #mobileControls {
-  bottom: 56px;
+  bottom: calc(56px + env(safe-area-inset-bottom));
   display: none;
   justify-content: space-between;
   gap: 12px;
@@ -140,6 +141,16 @@ html, body {
 
 @media (max-width: 900px), (pointer: coarse) {
   #mobileControls { display: flex; }
-  #hud { font-size: 14px; }
+  #hud {
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  #energyWrap { padding-left: 12px; padding-right: 12px; }
+  #mobileControls { padding-left: 12px; padding-right: 12px; gap: 10px; }
+  .ctrl {
+    min-height: 60px;
+    font-size: 20px;
+  }
   .panel h1 { font-size: 30px; }
 }
