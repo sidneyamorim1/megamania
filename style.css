@@ -1,0 +1,145 @@
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: "Courier New", monospace;
+  touch-action: none;
+  user-select: none;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+}
+
+#hud, #energyWrap, #mobileControls, #overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+#hud {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  color: #f7f7f7;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255,255,255,0.25);
+}
+
+#energyWrap {
+  bottom: 12px;
+  padding: 0 16px;
+  color: #7dff7d;
+}
+
+#energyLabel {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+#energyBar {
+  width: 100%;
+  height: 14px;
+  border: 2px solid #7dff7d;
+  box-sizing: border-box;
+  background: rgba(125,255,125,0.08);
+}
+
+#energyFill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #7dff7d, #ffee55, #ff5544);
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+
+#mobileControls {
+  bottom: 56px;
+  display: none;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.ctrl {
+  flex: 1;
+  min-height: 56px;
+  border: 2px solid #fff;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font: inherit;
+  font-size: 22px;
+  pointer-events: auto;
+}
+
+.ctrl.fire {
+  flex: 1.2;
+  color: #ffe66d;
+  border-color: #ffe66d;
+}
+
+#overlay {
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(20,20,40,0.72), rgba(0,0,0,0.95));
+  color: #fff;
+}
+
+#overlay:not(.show) {
+  display: none;
+}
+
+.panel {
+  width: min(92vw, 520px);
+  border: 3px solid #fff;
+  padding: 24px;
+  background: rgba(0,0,0,0.75);
+  text-align: center;
+}
+
+.panel h1 {
+  margin: 0 0 12px;
+  font-size: 42px;
+}
+
+.panel p {
+  margin: 8px 0;
+  line-height: 1.35;
+}
+
+#startBtn {
+  margin-top: 16px;
+  padding: 12px 22px;
+  border: 2px solid #fff;
+  background: #111;
+  color: #fff;
+  font: inherit;
+  font-weight: bold;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #mobileControls { display: flex; }
+  #hud { font-size: 14px; }
+  .panel h1 { font-size: 30px; }
+}

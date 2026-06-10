@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Megamania Drift</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="game" aria-label="Jogo de tiro espacial"></canvas>
+
+      <section id="hud">
+        <div id="score">SCORE 000000</div>
+        <div id="level">LEVEL 1</div>
+      </section>
+
+      <section id="energyWrap" aria-label="Barra de energia">
+        <div id="energyLabel">ENERGY</div>
+        <div id="energyBar"><div id="energyFill"></div></div>
+      </section>
+
+      <section id="mobileControls" aria-label="Controles mobile">
+        <button id="btnLeft" class="ctrl">◀</button>
+        <button id="btnFire" class="ctrl fire">FIRE</button>
+        <button id="btnRight" class="ctrl">▶</button>
+      </section>
+
+      <section id="overlay" class="show">
+        <div class="panel">
+          <h1>Megamania Drift</h1>
+          <p>Destrua a onda inteira para recarregar energia e avançar de fase.</p>
+          <p>Desktop: ← → e espaço. Mobile: botões na tela.</p>
+          <button id="startBtn">START</button>
+        </div>
+      </section>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+ </html>
