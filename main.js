@@ -67,6 +67,15 @@
 
   function rand(min, max) { return Math.random() * (max - min) + min; }
 
+  function bindTap(el, handler) {
+    const run = (e) => {
+      e.preventDefault();
+      handler();
+    };
+    el.addEventListener('click', run);
+    el.addEventListener('pointerup', run);
+  }
+
   function resetWave() {
     state.enemies = [];
     const rows = 4 + Math.min(2, Math.floor(state.level / 2));
@@ -127,7 +136,7 @@
     state.paused = false;
     overlay.innerHTML = `<div class="panel"><h1>Megamania Drift</h1><p>${message}</p><p>Desktop: ← →, espaço e P para pausar. Mobile: botões na tela.</p><button id="startBtn">START</button></div>`;
     overlay.classList.add('show');
-    overlay.querySelector('#startBtn').addEventListener('click', startGame);
+    bindTap(overlay.querySelector('#startBtn'), startGame);
   }
 
   function togglePause() {
@@ -137,7 +146,7 @@
     if (state.paused) {
       overlay.innerHTML = `<div class="panel"><h1>PAUSE</h1><p>O jogo está pausado.</p><p>Pressione P, Enter ou o botão para voltar.</p><button id="resumeBtn">CONTINUAR</button></div>`;
       overlay.classList.add('show');
-      overlay.querySelector('#resumeBtn').addEventListener('click', togglePause);
+      bindTap(overlay.querySelector('#resumeBtn'), togglePause);
     } else {
       overlay.classList.remove('show');
     }
@@ -153,8 +162,8 @@
       state.gameOver = true;
       overlay.innerHTML = `<div class="panel"><h1>GAME OVER</h1><p>SCORE ${String(state.score).padStart(6, '0')}</p><button id="startBtn">RESTART</button><button id="menuBtn" style="margin-left:10px">SAIR</button></div>`;
       overlay.classList.add('show');
-      overlay.querySelector('#startBtn').addEventListener('click', startGame);
-      overlay.querySelector('#menuBtn').addEventListener('click', () => showMenu('Você saiu da partida. Tente novamente quando quiser.'));
+      bindTap(overlay.querySelector('#startBtn'), startGame);
+      bindTap(overlay.querySelector('#menuBtn'), () => showMenu('Você saiu da partida. Tente novamente quando quiser.'));
     }
   }
 
@@ -412,8 +421,8 @@
   bindHold(btnLeft, 'left');
   bindHold(btnRight, 'right');
   bindHold(btnFire, 'fire');
-  btnPause.addEventListener('click', togglePause);
-  btnExit.addEventListener('click', () => showMenu('Você saiu da partida. Quando quiser, aperte START para jogar novamente.'));
+  bindTap(btnPause, togglePause);
+  bindTap(btnExit, () => showMenu('Você saiu da partida. Quando quiser, aperte START para jogar novamente.'));
 
   resize();
   updateHUD();
