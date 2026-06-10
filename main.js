@@ -51,7 +51,10 @@
   };
 
   function resize() {
-    const scale = Math.min(window.innerWidth / W, window.innerHeight / H);
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    const reservedSpace = isCoarse ? 170 : 0;
+    const scale = Math.min(window.innerWidth / W, Math.max(0.1, (viewportHeight - reservedSpace) / H));
     canvas.style.width = `${W * scale}px`;
     canvas.style.height = `${H * scale}px`;
   }
@@ -369,6 +372,7 @@
   });
   window.addEventListener('keyup', e => keys.delete(e.code));
   window.addEventListener('resize', resize);
+  window.visualViewport?.addEventListener('resize', resize);
   startBtn.addEventListener('click', startGame);
   bindHold(btnLeft, 'left');
   bindHold(btnRight, 'right');

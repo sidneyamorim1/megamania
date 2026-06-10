@@ -149,9 +149,14 @@ html, body {
   #energyWrap {
     padding-left: 12px;
     padding-right: 12px;
-    bottom: calc(14px + env(safe-area-inset-bottom));
+    bottom: calc(22px + env(safe-area-inset-bottom));
   }
-  #mobileControls { padding-left: 12px; padding-right: 12px; gap: 10px; }
+  #mobileControls {
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 10px;
+    bottom: calc(18px + env(safe-area-inset-bottom));
+  }
   .ctrl {
     min-height: 50px;
     font-size: 17px;
