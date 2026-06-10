@@ -53,13 +53,13 @@
   function resize() {
     const isCoarse = window.matchMedia('(pointer: coarse)').matches;
     const viewportHeight = window.visualViewport?.height || window.innerHeight;
-    const reservedSpace = isCoarse ? 170 : 0;
+    const reservedSpace = isCoarse ? 230 : 0;
     const availableHeight = Math.max(0.1, viewportHeight - reservedSpace);
     const scale = Math.min(window.innerWidth / W, availableHeight / H);
     canvas.style.width = `${W * scale}px`;
     canvas.style.height = `${H * scale}px`;
     canvas.style.left = '50%';
-    canvas.style.top = `calc(50% - ${isCoarse ? 70 : 0}px)`;
+    canvas.style.top = `calc(50% - ${isCoarse ? 95 : 0}px)`;
   }
 
   function rand(min, max) { return Math.random() * (max - min) + min; }
@@ -374,6 +374,10 @@
     if (!state.running && e.code === 'Space') startGame();
   });
   window.addEventListener('keyup', e => keys.delete(e.code));
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach((eventName) => {
+    window.addEventListener(eventName, (e) => e.preventDefault(), { passive: false });
+  });
+  window.addEventListener('dblclick', (e) => e.preventDefault());
   window.addEventListener('resize', resize);
   window.visualViewport?.addEventListener('resize', resize);
   startBtn.addEventListener('click', startGame);
