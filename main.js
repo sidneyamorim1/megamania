@@ -107,6 +107,7 @@
     state.player.x = W / 2;
     state.player.fireCooldown = 0;
     state.player.invuln = 0;
+    btnPause.textContent = 'II';
     state.bullets = [];
     state.enemyBullets = [];
     state.explosions = [];
@@ -132,6 +133,7 @@
   function togglePause() {
     if (!state.running || state.gameOver) return;
     state.paused = !state.paused;
+    btnPause.textContent = state.paused ? '▶' : 'II';
     if (state.paused) {
       overlay.innerHTML = `<div class="panel"><h1>PAUSE</h1><p>O jogo está pausado.</p><p>Pressione P, Enter ou o botão para voltar.</p><button id="resumeBtn">CONTINUAR</button></div>`;
       overlay.classList.add('show');
